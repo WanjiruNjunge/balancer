@@ -11,7 +11,17 @@ version: '3'
 
 services:
   application:
-    build: .
+    build: ./app
     # image: "load balancing server" 
+    # environment:
+    # - SERVER_ID=1
+    ports:
+      - "5000:5000"
+  load_balancer:
+    build:
+      context: ./loadbalancer
     ports:
       - "61616:61616"
+    depends_on:
+     - application  
+
