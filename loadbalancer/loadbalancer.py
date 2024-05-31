@@ -70,7 +70,7 @@ def add_replicas():
     n = data['n']
     hostnames = data['hostnames']
     for hostname in hostnames[:n]:
-        load_balancer.add_node(hostname)
+        load_balancer.add_server(hostname)
         replicas.append(hostname)
     return jsonify({
         "message": {
@@ -86,7 +86,7 @@ def remove_replicas():
     n = data['n']
     hostnames = data['hostnames']
     for hostname in hostnames[:n]:
-        load_balancer.remove_node(hostname)
+        load_balancer.remove_server(hostname)
         replicas.remove(hostname)
     return jsonify({
         "message": {
@@ -98,7 +98,7 @@ def remove_replicas():
 
 @app.route('/<path:path>', methods=['GET'])
 def route_request(path):
-    node = load_balancer.get_node(path)
+    node = load_balancer.get_server(path)
     if node:
         response = requests.get(f'http://{node}/{path}')
         return response.content, response.status_code, response.headers.items()
