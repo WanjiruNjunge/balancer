@@ -2,3 +2,4 @@ flask
 gunicorn
 hashlib
 math
+requests
