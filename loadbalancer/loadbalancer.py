@@ -51,6 +51,9 @@ class ConsistentHashing:
     def get_servers(self):
         return list(set(self.hash_ring.values()))
 
+# Task 3
+# Load Balancer
+
 load_balancer = ConsistentHashing()
 replicas = []
 
