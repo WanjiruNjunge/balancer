@@ -57,7 +57,16 @@ def rep():
 
 @app.route("/add", methods=['POST'])
 def add():
-  n, ids = generate_hostnames(1)
+  payload = request.get_json()
+  if payload is not None:
+    n = payload["N"]
+    ids = payload['replicas']
+    if n != len(id):
+      return jsonify({
+        "message": "number is not equal to servers"
+      })
+  else:  
+    n, ids = generate_hostnames(1)
   server_id = ids[0]
 
   container_id = create_container(server_id)
