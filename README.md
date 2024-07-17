@@ -11,11 +11,11 @@ The load balancer utilizes consistent hashing to distribute the load evenly amon
 - **Consistent Hashing**: Implemented in `ConsistentHashing` within `hashing.py`, it ensures a distributed, scalable, and replicable distribution of requests.
 - **Server Management**: Servers can be dynamically added or removed from the pool, with the `add_server` and `remove_server` methods. To add a server you may need to call the /add endpoint either with or without a payload. to remove you may call /rm without a payload.
 - **Request Routing**: Incoming requests are routed to the appropriate server based on the consistent hashing algorithm. This is handled in the `assign` function within `loadbalancer.py`.
-- **Docker Integration**: The application and its servers are containerized using Docker, allowing for easy deployment and scaling.
+- **Docker Integration**: The application and its servers are containerized using Docker, allowing for easy deployment and scaling
 
 ## Setup and Running
 
-### Prerequisites
+### Pre-requisites
 
 - Docker
 - Python 3.8 or higher
