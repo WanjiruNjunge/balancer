@@ -1,4 +1,4 @@
-import time
+import io
 from flask import Flask, jsonify, request, Response, g
 from hashing import ConsistentHashing, Server
 import random
@@ -7,6 +7,8 @@ import requests
 import logging
 import subprocess
 from threading import Thread, Lock
+from collections import defaultdict
+import matplotlib.pyplot as plt
 
 app = Flask(__name__)
 consistentHashing =  ConsistentHashing()
@@ -14,6 +16,9 @@ PORT: int = 32000
 SERVER_NAME = 'server'
 lock = Lock()
 REQUEST_DICT : dict[str, int] = {}
+server_requests = defaultdict(int)
+server_successes = defaultdict(int)
+server_failures = defaultdict(int)
 
 
 logging.basicConfig(filename='logs.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -120,29 +125,64 @@ def rm():
 # @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def assign(path):
-  global REQUEST_DICT
-  servers = consistentHashing.get_servers()
-  server_id = random.choice(servers)
-  server = consistentHashing.get_server(str(server_id))
-  logging.info(f"chosen server is {server}")
-
-  logging.info(server)
-  if server is None:
-    return Response(status=500)
-  
-  if not isinstance(server, Server):
-    return "Wrong Server chosen", 500
-      
-  # Make a request to the selected server
-  url = f"http://{server.ip}:5000/{path}"
-  logging.info(url)
-  print(url)
-  try:
-    response = requests.get(url, timeout=30)
-    return Response(response.content, status=response.status_code)
-  except requests.exceptions.RequestException as e:
-    logging.error(f"Error making request to server: {e}")
-    return Response(status=500)
+    global REQUEST_DICT, server_requests, server_successes, server_failures
+    
+    servers = consistentHashing.get_servers()
+    server_id = random.choice(servers)
+    server = consistentHashing.get_server(str(server_id))
+    logging.info(f"chosen server is {server}")
+    
+    if server is None:
+        return Response(status=500)
+    
+    if not isinstance(server, Server):
+        return "Wrong Server chosen", 500
+    
+    # Increment the request count for this server
+    server_requests[server.name] += 1
+    
+    # Make a request to the selected server
+    url = f"http://{server.ip}:5000/{path}"
+    logging.info(url)
+    print(url)
+    try:
+        response = requests.get(url, timeout=30)
+        # Increment the success count for this server
+        server_successes[server.name] += 1
+        return Response(response.content, status=response.status_code)
+    except requests.exceptions.RequestException as e:
+        logging.error(f"Error making request to server: {e}")
+        # Increment the failure count for this server
+        server_failures[server.name] += 1
+        return Response(status=500)
+    
+@app.route("/performance_graph")
+def performance_graph():
+    plt.figure(figsize=(12, 6))
+    
+    servers = list(server_requests.keys())
+    requests = [server_requests[server] for server in servers]
+    successes = [server_successes[server] for server in servers]
+    failures = [server_failures[server] for server in servers]
+    
+    x = range(len(servers))
+    width = 0.25
+    
+    plt.bar([i - width for i in x], requests, width, label='Total Requests', color='b')
+    plt.bar(x, successes, width, label='Successes', color='g')
+    plt.bar([i + width for i in x], failures, width, label='Failures', color='r')
+    
+    plt.xlabel('Servers')
+    plt.ylabel('Count')
+    plt.title('Server Performance')
+    plt.xticks(x, servers, rotation=45)
+    plt.legend()
+    
+    img = io.BytesIO()
+    plt.savefig(img, format='png')
+    img.seek(0)
+    
+    return Response(img.getvalue(), mimetype='image/png')
 
 if __name__ == "__main__":
   app.run("0.0.0.0", port=7432, debug=True, use_reloader=False)
