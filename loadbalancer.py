@@ -11,6 +11,7 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 
 app = Flask(__name__)
+app.current_server_index = 0
 consistentHashing =  ConsistentHashing()
 PORT: int = 32000
 SERVER_NAME = 'server'
@@ -126,9 +127,14 @@ def rm():
 @app.route("/<path:path>")
 def assign(path):
     global REQUEST_DICT, server_requests, server_successes, server_failures
+  
     
     servers = consistentHashing.get_servers()
-    server_id = random.choice(servers)
+    logging.info(f"servers={servers}")
+    # server_id = random.choice(servers)
+    with lock:
+        server_id = servers[app.current_server_index]
+        app.current_server_index = (app.current_server_index + 1) % len(servers)
     server = consistentHashing.get_server(str(server_id))
     logging.info(f"chosen server is {server}")
     

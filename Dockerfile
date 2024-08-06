@@ -45,7 +45,10 @@ RUN . /app/venv/bin/activate && \
 
 RUN chmod +x /app/run.sh
 RUN rm Dockerfile
+RUN dos2unix /app/run.sh
 
 
 # Set the entry point to bash (you can change this to your application's entry point)
 CMD /app/run.sh
+
+# CMD ["dos2unix', '/app/run.sh"] 
