@@ -25,6 +25,7 @@ class ConsistentHashing:
     self.hash_ring = {}
     # self.create_image('server')
     self.PORT = 54000
+    self.index = 0
 
 
     for _ in range(num_servers):
@@ -112,5 +113,10 @@ class ConsistentHashing:
   def get_servers(self):
     return list(set(self.hash_ring.values()))
 
+  def get_specific_server(self):
+    servers = self.get_servers()
+    server = servers[self.index % self.num_servers]
+    self.index += 1
+    return self.servers.get(server)
 
 

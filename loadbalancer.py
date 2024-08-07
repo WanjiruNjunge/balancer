@@ -129,13 +129,14 @@ def assign(path):
     global REQUEST_DICT, server_requests, server_successes, server_failures
   
     
-    servers = consistentHashing.get_servers()
-    logging.info(f"servers={servers}")
-    # server_id = random.choice(servers)
-    with lock:
-        server_id = servers[app.current_server_index]
-        app.current_server_index = (app.current_server_index + 1) % len(servers)
-    server = consistentHashing.get_server(str(server_id))
+    # servers = consistentHashing.get_servers()
+    # logging.info(f"servers={servers}")
+    # # server_id = random.choice(servers)
+    # with lock:
+    #     server_id = servers[app.current_server_index]
+    #     app.current_server_index = (app.current_server_index + 1) % len(servers)
+    # server = consistentHashing.get_server(str(server_id))
+    server = consistentHashing.get_specific_server()
     logging.info(f"chosen server is {server}")
     
     if server is None:
