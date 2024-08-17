@@ -1,11 +1,11 @@
 # Load Balancer Project
 
 This project implements a load balancer using Python and Docker, designed to distribute incoming network traffic across multiple servers. This ensures no single server bears too much demand. By spreading the requests across multiple servers, it increases reliability and availability within your application. 
-The project is based on the principles outlined in `DS_Assign_LB_2024.pdf` document, adapted to the specific implementation details found in the codebase.
+The project is based on the principles outlined in a Load Balancer Assignment, adapted to the specific implementation details found in the codebase.
 
 ## Overview
 
-The load balancer utilizes consistent hashing to distribute the load evenly among a pool of servers. It's built on Flask, a lightweight WSGI web application framework in Python, to handle incoming requests and forward them to the appropriate backend server.
+The load balancer implemented utilizes consistent hashing to distribute the load evenly among a pool of servers. It's built on Flask, a lightweight WSGI web application framework in Python, to handle incoming requests and forward them to the appropriate backend server.
 
 ## Key Components
 
@@ -34,14 +34,15 @@ Navigate to the project directory and install the required Python packages:
     ```sh
     pip install -r requirements.txt
     ```
-4. *Run the load balancer:*
+4. *Run the Main Script:*
+   Execute your main.py script using the command:
     ```sh
     python main.py
     ```
 This will start the load balancer and all associated services.
 
 5. Ensure the server is running
-   - `localhost:7432/home` to confirm the server is up and running.
+   - Open your web browser and navigate to `localhost:7432/home` to confirm the server is up and running.
 ![Screenshot 2024-08-17 211137](https://github.com/user-attachments/assets/f7e91e7c-1944-4bce-8fe8-32e2f1316783)
 
 
@@ -56,7 +57,7 @@ To test if the load balancer is working correctly, you can send multiple request
 
 #### 1. Send Requests:
 
-Use a tool like curl or Postman to send requests to http://localhost:7432
+You could use a tool like curl or Postman to send requests to `http://localhost:7432`
 
 #### 2. Verify Load Balancing:
 
@@ -84,7 +85,8 @@ python analysis.py
 #### Test 1: Load Distribution
 Launch 10,000 asynchronous requests on 3 server containers.
 Record the number of requests handled by each server and plot a bar chart.
-*Opening * `localhost:7432/performancegraph` *should display the graph*
+*Opening* `localhost:7432/performancegraph` *should display the graph*
+
 *Ideally:* the load would be evenly distributed among server instances.
 
 ![graph](https://github.com/user-attachments/assets/fb456d75-680c-41e6-ba21-3b4159e1ebcc)
@@ -93,14 +95,14 @@ Record the number of requests handled by each server and plot a bar chart.
 #### Test 2: Scalability
 Increament the number of server containers from 2 to 6 (launching 10,000 requests each time).
 *Ideally:* The load would be evenly distributed and efficiently scaled as server instances increase. 
-image
+
 
 #### Test 3: Failure Recovery
 Test load balancer endpoints until server failure is achieved.
 Ensure the load balancer spawns new instances to handle the load and maintain the specified number of replicas.
 
-run analysis.py 
-![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
+![short_requests](https://github.com/user-attachments/assets/c7195478-511c-4251-ae02-c583f1b4e7ba)
+
 
 ## Additional Info
 ### Docker Setup Process
