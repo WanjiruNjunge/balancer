@@ -107,7 +107,8 @@ image
 #### Test 3: Failure Recovery
 Test load balancer endpoints until server failure is achieved.
 Ensure the load balancer spawns new instances to handle the load and maintain the specified number of replicas.
-image
+
+
 ![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
 
 
