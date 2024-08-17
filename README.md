@@ -54,6 +54,8 @@ Build and run the containers.
 - *Check Docker Status:* 
 Ensure Docker is running by checking the status in the Docker Desktop dashboard or by running ```docker info``` in your terminal.
 
+Or within your IDE terminal, if that's what you're using
+![running_engine](https://github.com/user-attachments/assets/0d034263-9e17-4bf0-b6ce-ae59740d6baa)
 
 
 ## Visual Performance Monitoring
