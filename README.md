@@ -108,11 +108,6 @@ image
 Test load balancer endpoints until server failure is achieved.
 Ensure the load balancer spawns new instances to handle the load and maintain the specified number of replicas.
 
-Contribution
-Contributions to the Customizable Load Balancer project are welcome! Feel free to fork the repository, make improvements, and submit pull requests. Please ensure that your code follows the project's coding guidelines and standards.
-
-Acknowledgments
-Special thanks to the course instructors for providing the assignment specifications and guidance. References to relevant research papers and documentation sources are provided in the project documentation.
 
 ![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
 
