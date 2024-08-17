@@ -54,7 +54,8 @@ Build and run the containers.
 - *Check Docker Status:* 
 Ensure Docker is running by checking the status in the Docker Desktop dashboard or by running ```docker info``` in your terminal.
 
-Or within your IDE terminal, if that's what you're using
+Or within your IDE terminal, if that's what you're using.
+
 ![running_engine](https://github.com/user-attachments/assets/0d034263-9e17-4bf0-b6ce-ae59740d6baa)
 
 
@@ -95,11 +96,11 @@ Launch 10,000 asynchronous requests on 3 server containers.
 Record the number of requests handled by each server and plot a bar chart.
 *Ideally:* the load would be evenly distributed among server instances.
 
-image
+![graph](https://github.com/user-attachments/assets/fb456d75-680c-41e6-ba21-3b4159e1ebcc)
+
 
 #### Test 2: Scalability
 Increament the number of server containers from 2 to 6 (launching 10,000 requests each time).
-Plot a line chart showing the average load of the servers at each run.
 *Ideally:* The load would be evenly distributed and efficiently scaled as server instances increase. 
 image
 
@@ -107,6 +108,7 @@ image
 Test load balancer endpoints until server failure is achieved.
 Ensure the load balancer spawns new instances to handle the load and maintain the specified number of replicas.
 image
+![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
 
 
 <!-- Containers with the prefix 'emergency_' are spawned on failure of a replica.
