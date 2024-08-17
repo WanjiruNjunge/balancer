@@ -34,29 +34,15 @@ Navigate to the project directory and install the required Python packages:
     ```sh
     pip install -r requirements.txt
     ```
-4. *Run the Load Balancer:*
+4. *Run the load balancer:*
     ```sh
-    make run
+    python main.py
     ```
 This will start the load balancer and all associated services.
 
-### Docker Setup Process
-To deploy the project,assuming Docker Desktop is already installed: 
-
-- *Open Docker Desktop:* Launch Docker Desktop from your start menu or applications folder.
-- *Navigate to Project Directory:* Use the Docker Desktop interface or the built-in terminal to navigate to your project directory.
-- *Run Docker Compose:* 
-Build and run the containers. 
-   ```sh
-   docker-compose up --build
-   ```  
-     
-- *Check Docker Status:* 
-Ensure Docker is running by checking the status in the Docker Desktop dashboard or by running ```docker info``` in your terminal.
-
-Or within your IDE terminal, if that's what you're using.
-
-![running_engine](https://github.com/user-attachments/assets/0d034263-9e17-4bf0-b6ce-ae59740d6baa)
+5. Ensure the server is running
+   - `localhost:7432/home` to confirm the server is up and running.
+![Screenshot 2024-08-17 211137](https://github.com/user-attachments/assets/f7e91e7c-1944-4bce-8fe8-32e2f1316783)
 
 
 ## Visual Performance Monitoring
@@ -91,9 +77,14 @@ After running tests, analyze the generated charts and logs to understand:
 
 ### Analyzing Performance
 #### Sample Results
+For these tests, carry out an analysis of the balancer to get the relevant metrics by running:
+```sh
+python analysis.py
+```
 #### Test 1: Load Distribution
 Launch 10,000 asynchronous requests on 3 server containers.
 Record the number of requests handled by each server and plot a bar chart.
+*Opening * `localhost:7432/performancegraph` *should display the graph*
 *Ideally:* the load would be evenly distributed among server instances.
 
 ![graph](https://github.com/user-attachments/assets/fb456d75-680c-41e6-ba21-3b4159e1ebcc)
@@ -108,8 +99,28 @@ image
 Test load balancer endpoints until server failure is achieved.
 Ensure the load balancer spawns new instances to handle the load and maintain the specified number of replicas.
 
-
+run analysis.py 
 ![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
+
+## Additional Info
+### Docker Setup Process
+To deploy the project,assuming Docker Desktop is already installed: 
+
+- *Open Docker Desktop:* Launch Docker Desktop from your start menu or applications folder.
+- *Navigate to Project Directory:* Use the Docker Desktop interface or the built-in terminal to navigate to your project directory.
+- *Run Docker Compose:* 
+Build and run the containers. 
+   ```sh
+   docker-compose up --build
+   ```  
+     
+- *Check Docker Status:* 
+Ensure Docker is running by checking the status in the Docker Desktop dashboard or by running ```docker info``` in your terminal.
+
+Or within your IDE terminal, if that's what you're using.
+
+![running_engine](https://github.com/user-attachments/assets/0d034263-9e17-4bf0-b6ce-ae59740d6baa)
+
 
 ## Contribution
 Contributions to the load balancer implementation project are welcome! Feel free to fork, raise issues, and submit pull requests to the repo while ensuring that your code follows the project's coding guidelines and standards.
