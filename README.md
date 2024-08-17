@@ -112,9 +112,9 @@ Ensure the load balancer spawns new instances to handle the load and maintain th
 ![requests](https://github.com/user-attachments/assets/b9eb2866-4dbc-4287-ade5-7cac9d58fcbe)
 
 ## Contribution
-Contributions to the Customizable Load Balancer project are welcome! Feel free to fork the repository, make improvements, and submit pull requests. Please ensure that your code follows the project's coding guidelines and standards.
+Contributions to the load balancer implementation project are welcome! Feel free to fork, raise issues, and submit pull requests to the repo while ensuring that your code follows the project's coding guidelines and standards.
 
 ## Acknowledgments
-Special thanks to the course instructors for providing the assignment specifications and guidance. References to relevant research papers and documentation sources are provided in the project documentation.
+Special thanks to the course instructor for providing the assignment specifications and guidance and to the contributors of the project.
 <!-- Containers with the prefix 'emergency_' are spawned on failure of a replica.
 On failure of a server during a test run with 40000 requests, 'emergency_52' and 'emergency_11' were spawned to handle requests -->
